@@ -8,11 +8,6 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG PASSWORD_ENV_SEEDED=some.long.password.fllkwefiwejf23049uwlekjf.sEFWEFGR98^&$
 RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p $PASSWORD_ENV_SEEDED
-WORKDIR /etc
-RUN apt-get update
-RUN apt-get install curl -y
-COPY ["nuget-org.pem", "ssl/certs/nuget-org.pem"]
-ENV SSL_CERT_FILE=/etc/ssl/certs/nuget-org.pem
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Catalog/Catalog.API/Catalog.API.csproj", "Services/Catalog/Catalog.API/"]
@@ -27,11 +22,6 @@ RUN dotnet publish "./Catalog.API.csproj" -c $BUILD_CONFIGURATION -o /app/publis
 
 FROM base AS final
 COPY --chmod=0755 --from=build /https/* /https/
-WORKDIR /etc
-RUN apt-get update
-RUN apt-get install curl -y
-COPY ["nuget-org.pem", "ssl/certs/nuget-org.pem"]
-ENV SSL_CERT_FILE=/etc/ssl/certs/nuget-org.pem
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Catalog.API.dll"]
