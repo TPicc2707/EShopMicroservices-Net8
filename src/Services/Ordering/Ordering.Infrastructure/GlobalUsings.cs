@@ -11,3 +11,5 @@ global using Ordering.Domain.Models;
 global using Ordering.Domain.ValueObjects;
 global using Ordering.Infrastructure.Data;
 global using System.Reflection;
+global using Ordering.Application.Data;
+global using Ordering.Infrastructure.Data.Inteceptors;
