@@ -59,6 +59,7 @@ services:
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
   basket.api:
+    container_name: basket.api
     environment:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=some.long.password.fllkwefiwejf23049uwlekjf.sEFWEFGR98^&$
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
@@ -80,6 +81,7 @@ services:
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
   discount.grpc:
+    container_name: discount.grpc
     environment:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=some.long.password.fllkwefiwejf23049uwlekjf.sEFWEFGR98^&$
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
