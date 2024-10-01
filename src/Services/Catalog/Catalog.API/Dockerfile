@@ -22,6 +22,7 @@ RUN dotnet publish "./Catalog.API.csproj" -c $BUILD_CONFIGURATION -o /app/publis
 
 FROM base AS final
 COPY --chmod=0755 --from=build /https/* /https/
+COPY --chmod=0755 --from=build /https/* /etc/ssl/certs/
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Catalog.API.dll"]
